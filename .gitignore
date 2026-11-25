@@ -1,0 +1,31 @@
+# Card provisioning and Windows bridge credentials
+companion.json
+assistant.json
+assistant-token.txt
+openai-key.dpapi
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated audio, build output, and local working files
+recordings/
+speech-cache/
+reply.wav
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+build/
+.pio/
+*.bin
+*.elf
+*.map
+*.o
+*.obj
+*.exe
+*.log
+~$*
+Thumbs.db
+.DS_Store

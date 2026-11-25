@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pod Settings</title>
+<style>
+:root{color-scheme:dark;--bg:#090e18;--panel:#131d2c;--border:#2b3b50;--text:#f2f6fc;--muted:#acbad0;--accent:#4bd9e9;--input:#0b1422}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Segoe UI",sans-serif}
+body.light{color-scheme:light;--bg:#edf3f9;--panel:#fff;--border:#c6d3e1;--text:#13263e;--muted:#506580;--accent:#087e91;--input:#f5f8fc}
+aside{position:fixed;inset:0 auto 0 0;width:226px;padding:32px 26px;border-right:1px solid var(--border);background:var(--panel)}
+.brand{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700}.bot{display:inline-block;border:3px solid var(--accent);border-radius:12px;width:38px;height:29px;position:relative}.bot:before{content:"";position:absolute;width:5px;height:8px;border-radius:4px;background:var(--accent);top:7px;left:7px;box-shadow:14px 0 var(--accent)}
+nav{display:grid;gap:6px;margin-top:46px}nav a{color:var(--muted);text-decoration:none;padding:11px 12px;border-radius:9px}nav a:hover,nav a:focus{background:var(--input);color:var(--accent)}aside p{font-size:14px;color:var(--muted);margin-top:40px}
+main{max-width:1250px;margin-left:226px;padding:38px 46px 90px}header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}h1{font-size:32px;letter-spacing:-1px;margin:0}h2{font-size:20px;margin:0 0 6px}p{margin:0 0 18px;color:var(--muted)}
+button{font:inherit;font-weight:600;border:1px solid var(--border);background:var(--input);color:var(--text);padding:10px 18px;border-radius:10px;cursor:pointer}button:hover{border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}.primary{background:var(--accent);color:var(--bg);border-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px;scroll-margin-top:20px}.wide{grid-column:1/-1}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}.status{padding:18px 20px;background:var(--panel);border:1px solid var(--border);border-radius:14px}.status strong{display:block;font-size:19px;margin-top:4px}.online{color:var(--accent)}.offline{color:#f79c91}
+label{display:block;font-size:15px;color:var(--muted);margin:18px 0 8px}.row{display:flex;align-items:center;gap:12px}.row input{flex:1;min-width:0}.row output{min-width:65px;text-align:right;font-variant-numeric:tabular-nums}input,select{width:100%;font:inherit;color:var(--text);background:var(--input);border:1px solid var(--border);padding:11px 12px;border-radius:9px}input[type=range]{accent-color:var(--accent);padding:0;height:30px;border:0}.help{font-size:14px;color:var(--muted);margin-top:10px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}#places{display:grid;gap:6px;margin-top:10px}#places button{text-align:left;font-weight:400}dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 0}dt{color:var(--muted)}dd{margin:0;text-align:right;overflow-wrap:anywhere}#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-30%);max-width:90vw;padding:13px 22px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:0 12px 40px #0005;display:none}#notice{font-size:14px;margin-bottom:24px}.danger{color:#edaba5}small{font-size:14px}footer{margin-top:26px;color:var(--muted);font-size:14px}
+@media(max-width:1000px){aside{width:180px;padding:24px 16px}main{margin-left:180px;padding:30px 24px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.status-grid{gap:8px}.status{padding:14px;font-size:14px}}
+@media(max-width:670px){aside{position:static;width:auto;border-right:0;border-bottom:1px solid var(--border);padding:18px 20px}aside p,nav{display:none}main{margin:0;padding:24px 18px 80px}header{align-items:flex-start}h1{font-size:26px}.status-grid{grid-template-columns:1fr}.status{display:flex;justify-content:space-between}.status strong{font-size:16px;margin:0}.card{padding:20px}.row{flex-wrap:wrap}#toast{left:18px;right:18px;transform:none}}
+</style>
+<aside><div class="brand"><span class="bot" aria-hidden="true"></span>Pod</div><nav aria-label="Settings sections"><a href="#overview">Overview</a><a href="#display">Display</a><a href="#audio">Audio & voice</a><a href="#api">AI connection</a><a href="#device">Device</a></nav><p>Your desktop companion.<br>Settings stay with Pod.</p></aside>
+<main><header id="overview"><div><h1>Make Pod yours.</h1><p>Display, voice and the world outside.</p></div><button class="primary pod-action" id="apply" disabled>Apply to Pod</button></header>
+<div class="status-grid" aria-live="polite"><div class="status">Pod<strong id="podStatus">Checking…</strong></div><div class="status">AI bridge<strong id="aiStatus">Checking…</strong></div><div class="status">YTMDesktop<strong id="ytmStatus">Checking…</strong></div></div>
+<p id="notice" aria-live="polite">Connecting to the local bridge…</p>
+<div class="grid">
+<section class="card" id="display"><h2>Display</h2><p>Keep the screen comfortable.</p>
+<label for="brightness">Screen brightness</label><div class="row"><input data-setting class="pod-field" type="range" id="brightness" min="10" max="100" value="80"><output for="brightness" id="brightnessValue">80%</output></div>
+<label for="theme">Screen appearance</label><select data-setting class="pod-field" id="theme"><option value="dark">Dark</option><option value="light">Light</option></select>
+<label for="palette">LED color</label><select data-setting class="pod-field" id="palette"><option value="0">Match the screen / music artwork</option><option value="1">Cyan</option><option value="2">Blue</option><option value="3">Violet</option><option value="4">Amber</option><option value="5">Green</option><option value="6">Off</option></select></section>
+<section class="card" id="audio"><h2>Sound & microphone</h2><p>Voice capture ends after two seconds of silence.</p>
+<label for="volume">Speaker volume</label><div class="row"><input data-setting class="pod-field" type="range" id="volume" min="0" max="100" value="85"><output id="volumeValue" for="volume">85%</output></div>
+<label for="microphoneDb">Microphone gain</label><div class="row"><input data-setting class="pod-field" type="range" id="microphoneDb" min="-12" max="12" value="0"><output id="microphoneDbValue" for="microphoneDb">0 dB</output></div>
+<label for="recordSeconds">Maximum recording length</label><div class="row"><input data-setting class="pod-field" type="range" id="recordSeconds" min="10" max="20" value="20"><output id="recordSecondsValue" for="recordSeconds">20 sec</output></div></section>
+<section class="card"><h2>Follow-up listening</h2>
+<label for="wakeEachTurn">Conversation mode</label>
+<select id="wakeEachTurn" class="pod-field" data-setting><option value="false">Quick follow-up</option><option value="true">Wake each turn</option></select>
+<label for="followUpPrompt"><input id="followUpPrompt" class="pod-field" type="checkbox" data-setting> Ask if I need anything else</label>
+<p class="help">Quick follow-up listens for 8 seconds after a reply. The optional prompt gives you 4 more seconds. Wake each turn keeps the recent context for 2 minutes.</p></section>
+<section class="card"><h2>Wake phrase</h2><p>Choose a short phrase and teach Pod how you say it.</p><label for="wakePhrase">Phrase</label><input data-setting class="pod-field" id="wakePhrase" maxlength="28" value="Hey Sam" autocomplete="off">
+<p class="help">Apply a new phrase, then enroll it once on Pod. Speak only the phrase and pause.</p><div class="actions"><button class="pod-action" id="enroll" disabled>Enroll phrase</button><button class="pod-action" id="test" disabled>Test wake word</button></div><p class="help" id="wakeStatus" aria-live="polite">Waiting for Pod.</p></section>
+<section class="card wide" id="api"><h2>OpenAI connection</h2><p>Add your API key here. Windows encrypts the saved key for this account.</p><label for="apiKey">Secret API key</label><div class="row"><input type="password" id="apiKey" autocomplete="off" placeholder="sk-…"><button id="saveKey">Save API key</button></div><p class="help" id="keyStatus"></p></section>
+<section class="card wide" id="device"><h2>Your Pod</h2><dl><dt>Firmware</dt><dd id="firmware">—</dd><dt>Flash / PSRAM</dt><dd id="memory">—</dd><dt>SD storage used</dt><dd id="storage">—</dd></dl><div class="actions"><button class="pod-action danger" id="sleep" disabled>Say goodbye & sleep</button></div><p class="help">After sleep, use reset or the power switch to start Pod again.</p></section>
+</div><footer>Settings are available on this PC.</footer></main><div id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);
+const fragment=location.hash.slice(1);
+let token=/^[A-Za-z0-9_-]{43}$/.test(fragment)?fragment:(sessionStorage.getItem('podToken')||'');
+if(token){sessionStorage.setItem('podToken',token);history.replaceState(null,'',location.pathname)}
+let state=null,dirty=false,waiting=false,toastTimer;
+function tell(message){$('toast').textContent=message;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',5000)}
+async function api(path,body){
+ const response=await fetch(path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+token,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
+ const data=await response.json();if(!response.ok)throw Error(data.error||'Request failed');return data;
+}
+function values(){
+ for(const [id,unit]of [['brightness','%'],['volume','%'],['microphoneDb',' dB'],['recordSeconds',' sec']])$(id+'Value').textContent=$(id).value+unit;
+ document.body.classList.toggle('light',$('theme').value==='light');
+}
+for(const el of document.querySelectorAll('[data-setting]'))el.addEventListener('input',()=>{dirty=true;values()});
+function showStatus(id,text,online){$(id).textContent=text;$(id).className=online?'online':'offline'}
+async function poll(){
+ try{
+  state=await api('/ui/status');const p=state.pod;
+  showStatus('podStatus',state.podOnline?'Connected':'Offline',state.podOnline);
+  showStatus('aiStatus',state.ai.error?'Needs attention':state.ai.keyConfigured?'Ready':'Add API key',!state.ai.error&&state.ai.keyConfigured);
+  showStatus('ytmStatus',!state.podOnline?'Waiting for Pod':p.musicOnline?'Connected':'Disconnected',state.podOnline&&p.musicOnline);
+  $('notice').textContent=state.pending?'Applying to Pod…':state.result||'Connected to the local bridge.';
+  if(waiting&&!state.pending){waiting=false;dirty=false;tell(state.result||'Pod responded')}
+  if(state.podOnline&&!dirty&&!state.pending){
+   for(const id of ['brightness','volume','microphoneDb','recordSeconds','palette','wakePhrase'])if(p[id]!==undefined)$(id).value=p[id];
+   $('theme').value=p.lightMode?'light':'dark';
+   $('wakeEachTurn').value=String(p.wakeEachTurn === true);
+   $('followUpPrompt').checked=p.followUpPrompt === true;
+   values();
+  }
+  $('wakeStatus').textContent=p.teaching?'Listening for enrollment…':p.wakeTest|| (p.wakeTrained?'Wake phrase is enrolled.':'Enrollment needed.');
+  $('firmware').textContent=p.firmware||'—';
+  $('memory').textContent=p.flashMb?p.flashMb+' MB / '+p.psramMb+' MB':'—';
+  $('storage').textContent=p.sdAvailable?((p.sdUsed||0)/1e9).toFixed(2)+' GB of '+((p.sdTotal||0)/1e9).toFixed(2)+' GB':'SD card unavailable';
+  $('keyStatus').textContent=state.ai.error|| (state.ai.keyConfigured?'A key is configured.':'Add a key to enable AI conversations.');
+  for(const el of document.querySelectorAll('.pod-action,.pod-field'))el.disabled=!state.podOnline||state.pending;
+ }catch(error){$('notice').textContent=error.message;showStatus('podStatus','Unavailable',false)}
+}
+async function command(action,settings){
+ try{await api('/ui/command',{action,...(settings?{settings}:{})});waiting=true;tell('Sent to Pod');await poll()}catch(error){tell(error.message)}
+}
+$('apply').onclick=()=>{
+ const settings={};
+ for(const id of ['brightness','volume','microphoneDb','recordSeconds','palette'])settings[id]=Number($(id).value);
+ Object.assign(settings,{lightMode:$('theme').value==='light',wakePhrase:$('wakePhrase').value.trim(),wakeEachTurn:$('wakeEachTurn').value==='true',followUpPrompt:$('followUpPrompt').checked});
+ command('settings',settings);
+};
+$('enroll').onclick=()=>{if(dirty){tell('Apply your settings before enrollment.');return}command('enroll')};
+$('test').onclick=()=>command('test');
+$('sleep').onclick=()=>{if(confirm('Let Pod say goodbye and sleep?'))command('sleep')};
+$('saveKey').onclick=async()=>{
+ const key=$('apiKey').value.trim();if(!key){tell('Enter your API key.');return}
+ $('saveKey').disabled=true;
+ try{await api('/ui/key',{key});$('apiKey').value='';tell('API key encrypted and saved.');await poll()}catch(error){tell(error.message)}finally{$('saveKey').disabled=false}
+};
+values();poll();setInterval(poll,2000);
+</script></html>
+

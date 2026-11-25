@@ -1,0 +1,16 @@
+{
+  "intents": [
+    {"action":"time","phrases":["what time is it","what is the time","tell me the time","current time"],
+     "responses":["It is {value}.","The time is {value}."]},
+    {"action":"date","phrases":["what is the date","what's the date","what day is it","today's date"],
+     "responses":["Today is {value}.","It's {value} today."]},
+    {"action":"volume","phrases":["what is the volume","what's the volume","volume level"],
+     "responses":["Pod volume is {volume} percent.","The speaker is at {volume} percent."]},
+    {"action":"status","phrases":["device status","pod status","system status"],
+     "responses":["The Pod is online, its volume is {volume} percent, and desktop music is {music}.",
+                  "The Pod is connected. Volume is {volume} percent. Desktop music is {music}."]},
+    {"action":"track","phrases":["what is playing","what's playing","what song is this"]},
+    {"action":"reply","phrases":["thank you","thanks"],
+     "responses":["You're welcome.","Happy to help."]}
+  ]
+}

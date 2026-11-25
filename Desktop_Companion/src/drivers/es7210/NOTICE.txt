@@ -1,0 +1,13 @@
+ES7210 codec driver
+Copyright 2022 Espressif Systems (Shanghai) CO LTD
+SPDX-License-Identifier: Apache-2.0
+
+Source: the Waveshare-provided es7210 library installed in the user's Arduino
+sketchbook (es7210.c, es7210.h, es7210_reg.h).
+
+Local modification: only es7210_write_reg uses a C-linkage Arduino Wire adapter
+instead of legacy ESP-IDF I2C calls. Configuration functions, clock coefficients,
+register definitions and public headers remain identical to that installed copy.
+The original globally installed library is not modified.
+
+License: https://www.apache.org/licenses/LICENSE-2.0

@@ -1,0 +1,1 @@
+FreeSans9pt7b and FreeSansBold12pt7b are GNU FreeFont bitmap data distributed with Adafruit_GFX. Only the include has changed to use the installed Arduino_GFX GFXfont types. Adafruit BSD notice is retained in LICENSE-Adafruit.txt. GNU FreeFont is GPL with a font embedding exception: https://www.gnu.org/software/freefont/license.html
